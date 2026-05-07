@@ -101,14 +101,14 @@ async function createPoll(data) {
 }
 
 async function loadPoll(id) {
-  const { data: poll, error: e1 } = await supabase
+  const { data: poll, error: e1 } = await sb
     .from('polls')
     .select('*')
     .eq('id', id)
     .single();
   if (e1) return null;
 
-  const { data: responses, error: e2 } = await supabase
+  const { data: responses, error: e2 } = await sb
     .from('responses')
     .select('*')
     .eq('poll_id', id);
@@ -118,7 +118,7 @@ async function loadPoll(id) {
 }
 
 async function saveResponse(pollId, name, answers) {
-  const { error } = await supabase
+  const { error } = await sb
     .from('responses')
     .upsert(
       { poll_id: pollId, name, answers, updated_at: new Date().toISOString() },
