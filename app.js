@@ -2,7 +2,7 @@
 // 日程調整ツール - メインアプリケーション
 // ===========================================
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const main = document.getElementById('main');
 
 const state = {
@@ -90,7 +90,7 @@ function getShareUrl(id) {
 // ===========================================
 async function createPoll(data) {
   const id = uid();
-  const { error } = await supabase.from('polls').insert({
+  const { error } = await sb.from('polls').insert({
     id,
     title: data.title,
     dates: data.dates,
