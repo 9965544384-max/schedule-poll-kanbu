@@ -10,12 +10,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <div id="app">
   <header>
-    <h1>日程調整</h1>
+    <div class="header-inner">
+      <button class="header-title" onclick="goLanding()" aria-label="ホームに戻る">
+        <h1>日程調整</h1>
+      </button>
+      <button class="header-new-btn" onclick="goCreate()" aria-label="新しい調整を作成">+ 新規作成</button>
+    </div>
     <p class="tagline">時間帯ドラッグで一括指定 × ◯△☓で回答</p>
   </header>
 
@@ -27,7 +32,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js?v=5"></script>
-<script src="app.js?v=5"></script>
+<script src="config.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

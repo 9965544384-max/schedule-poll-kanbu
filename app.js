@@ -134,6 +134,15 @@ async function saveResponse(pollId, name, answers) {
   if (error) throw error;
 }
 
+async function deleteResponse(pollId, name) {
+  const { error } = await sb
+    .from('responses')
+    .delete()
+    .eq('poll_id', pollId)
+    .eq('name', name);
+  if (error) throw error;
+}
+
 // ===========================================
 // 画面ルーター
 // ===========================================
@@ -374,10 +383,12 @@ function renderRespond() {
 
       ${renderRespondGrid()}
 
-      <div style="display:flex; gap:8px; margin-top:24px;">
+      <div style="display:flex; gap:8px; margin-top:24px; flex-wrap:wrap;">
         <button class="primary" onclick="handleSubmit()">この内容で回答を保存</button>
-        <button onclick="goLanding()">キャンセル</button>
+        <button onclick="goResults()">集計画面へ</button>
       </div>
+
+      ${renderDeleteSection()}
     </div>
   `;
 
@@ -386,6 +397,36 @@ function renderRespond() {
   });
 
   attachGridDragHandlers();
+}
+
+function renderDeleteSection() {
+  // 既存の自分の回答がある場合のみ表示
+  const myExisting = state.responses.find(r => r.name === state.myName.trim() && state.myName.trim() !== '');
+  if (!myExisting) return '';
+  return `
+    <div class="delete-section">
+      <p class="help-text" style="margin-bottom:8px;">「${escapeHtml(myExisting.name)}」名義の既存の回答を削除できます</p>
+      <button class="danger" onclick="handleDelete()">この名前の回答を削除</button>
+    </div>
+  `;
+}
+
+async function handleDelete() {
+  const name = state.myName.trim();
+  if (!name) return;
+  if (!confirm(`「${name}」の回答を削除しますか？この操作は取り消せません。`)) return;
+
+  state.screen = 'loading';
+  render();
+  try {
+    await deleteResponse(state.pollId, name);
+    state.myAnswers = {};
+    await openPoll(state.pollId, 'results');
+  } catch (e) {
+    state.screen = 'error';
+    state.errorMsg = '削除に失敗しました: ' + (e.message || e);
+    render();
+  }
 }
 
 function renderRespondGrid() {

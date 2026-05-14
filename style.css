@@ -51,6 +51,50 @@ header {
   border-bottom: 1px solid var(--border);
 }
 
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.header-title {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.15s;
+}
+
+.header-title:hover {
+  background: var(--bg-subtle);
+}
+
+.header-title h1 {
+  margin: 0;
+}
+
+.header-new-btn {
+  font-size: 13px;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: white;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 500;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.header-new-btn:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
 h1 {
   font-size: 28px;
   font-weight: 700;
@@ -61,6 +105,7 @@ h1 {
 .tagline {
   color: var(--text-muted);
   font-size: 13px;
+  text-align: center;
 }
 
 footer {
@@ -113,6 +158,23 @@ button.primary:hover {
 }
 
 button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+button.danger {
+  background: transparent;
+  color: var(--batsu-text);
+  border: 1px solid var(--batsu-strong);
+}
+
+button.danger:hover {
+  background: var(--batsu-bg);
+  border-color: var(--batsu-strong);
+}
+
+.delete-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
 
 input[type="text"], input[type="date"], input[type="number"], select {
   font-family: inherit;
